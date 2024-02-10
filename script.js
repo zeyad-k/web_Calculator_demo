@@ -39,9 +39,9 @@ const numberButtonHandler= (value)=>{
 	updateScreen(currentNumber) ;
 }
 const resetButtonHandler = ()=>{
-	let storedNumber = "";
-let currentNumber = "";
-let operation= "";
+	 storedNumber = "";
+	  currentNumber = "";
+ operation= "";
 updateScreen(currentNumber) ;
 
 }
@@ -57,6 +57,45 @@ updateScreen(currentNumber);
 }
  
 }
+const executeOperation = ()=>{
+	if (currentNumber && storedNumber && operation) {
+		switch (operation) {
+			case "+":
+				storedNumber = parseFloat(storedNumber )+parseFloat( currentNumber)
+				break;
+			case "-":
+				storedNumber = parseFloat(storedNumber )- parseFloat(currentNumber)
+ 				break;
+			case "*":
+				storedNumber = parseFloat(storedNumber )* parseFloat(currentNumber)
+ 				break;
+			case "/":
+				storedNumber = parseFloat(storedNumber )/ parseFloat(currentNumber)
+				break;
+		
+			default:
+				break;
+		}
+		currentNumber="";
+		updateScreen(storedNumber);
+
+	}
+ }
+const operationButtonHandler = (operationValue)=>{
+if (!storedNumber && !currentNumber) return;
+if (!storedNumber && currentNumber) {
+	storedNumber = currentNumber;
+	currentNumber = "";
+	operation = operationValue;
+}else if (storedNumber){
+	operation = operationValue;
+	if(currentNumber) executeOperation();
+}
+// console.log({storedNumber});
+// console.log({currentNumber});
+// console.log({operation});
+ 	}
+
 const keyElementHandler =(element)=>{
 	element.addEventListener('click', ()=>{
 		 const type= element.dataset.type;
@@ -71,10 +110,13 @@ const keyElementHandler =(element)=>{
 				case 'Backspace':
 					deleteButtonHandler();
  					break;
+				case 'Enter':
+					executeOperation();
+  					break;
 			
 				default:
-					break;
-			}
+					operationButtonHandler(element.dataset.value)
+ 			}
 
 		}
 	})
