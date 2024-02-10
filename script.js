@@ -19,3 +19,33 @@ toggleElement.addEventListener('keydown',switchThemeWithEnter )
 toggleElement.addEventListener('click',switchTheme ) 
 
 // End Light - Dark Theme 
+
+// Logic of Addig numbers to screen
+let storedNumber = "";
+let currentNumber = "";
+let operation= "";
+
+const resultElement = document.querySelector('.calc__result');
+const keyElements = document.querySelectorAll('[data-type]');
+
+const updateScreen = (value)=>{
+	resultElement.innerText = !value ? "0" : value;
+}
+const numberButtonHandler= (value)=>{
+ 	if(value==='.' && currentNumber.includes('.')) return ;
+	if(value==='0' && !currentNumber) return ;
+
+	currentNumber += value ;
+	updateScreen(currentNumber) ;
+}
+const keyElementHandler =(element)=>{
+	element.addEventListener('click', ()=>{
+		if (element.dataset.type === "number") numberButtonHandler(element.dataset.value) ;
+	})
+}
+
+keyElements.forEach(keyElementHandler)
+
+
+
+
