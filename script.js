@@ -45,6 +45,18 @@ let operation= "";
 updateScreen(currentNumber) ;
 
 }
+const deleteButtonHandler = ()=>{
+if (!currentNumber || currentNumber==="0")  return ;
+
+if (currentNumber.length === 1) {
+	currentNumber = "";
+	updateScreen(currentNumber) ;
+}else{
+currentNumber = currentNumber.substring(0,currentNumber.length - 1);
+updateScreen(currentNumber);
+}
+ 
+}
 const keyElementHandler =(element)=>{
 	element.addEventListener('click', ()=>{
 		 const type= element.dataset.type;
@@ -54,8 +66,11 @@ const keyElementHandler =(element)=>{
 		} else if(type === "operation"){
 			switch (element.dataset.value) {
 				case 'c':
-					resetButtonHandler()
+					resetButtonHandler();
 					break;
+				case 'Backspace':
+					deleteButtonHandler();
+ 					break;
 			
 				default:
 					break;
