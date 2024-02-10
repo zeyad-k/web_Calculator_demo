@@ -83,12 +83,14 @@ const executeOperation = ()=>{
  }
 const operationButtonHandler = (operationValue)=>{
 if (!storedNumber && !currentNumber) return;
+
 if (!storedNumber && currentNumber) {
 	storedNumber = currentNumber;
 	currentNumber = "";
 	operation = operationValue;
 }else if (storedNumber){
 	operation = operationValue;
+
 	if(currentNumber) executeOperation();
 }
 // console.log({storedNumber});
