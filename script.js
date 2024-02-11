@@ -129,3 +129,37 @@ keyElements.forEach(keyElementHandler)
 
 
 
+// To make it more Accessible :  use keyboard as input source
+const availableNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9","."];
+const availableOperations = ["+","-","*","/"];
+const availableKeys = [...availableNumbers, ...availableOperations, "Backspace", "Enter", "c"]
+console.log(availableKeys)
+window.addEventListener("keydown", (event)=>{
+// keyboardWithoutHover(event.key)
+keyboardWithHover(event.key)
+});
+
+keyboardWithoutHover = (key)=>{
+	if (availableNumbers.includes(key)) {
+		numberButtonHandler(key);
+			 }else if(availableOperations.includes(key)){
+		operationButtonHandler(key);
+			}else if(key === 'Backspace'){
+		deleteButtonHandler()
+			}else if(key==='Enter'){
+				executeOperation();
+			}else if(key==='c')	{
+				resetButtonHandler()
+			}
+}
+keyboardWithHover = (key)=>{ 
+	if (availableKeys.includes(key)) {
+		const element = document.querySelector(`[data-value="${key}"]`);
+
+		element.classList.add('hover');
+		element.click();
+		setTimeout(()=>element.classList.remove('hover'),200);
+
+
+	}
+ }
